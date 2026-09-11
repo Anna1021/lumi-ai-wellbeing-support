@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | SANA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="sana-shell auth-refined">
+  <div class="container">
+    <div class="login-card signup-card">
+      <a class="auth-brand" href="login.html"><img src="./image/a.png" alt="SANA logo"><span>SANA</span></a>
+      <h1 class="login-title">Create your account</h1>
+      <p class="login-subtitle">Join SANA and make this space your own</p>
+
+      <form class="login-form" id="signupForm" novalidate>
+        <div class="input-group">
+          <label for="signupUsername">Username</label>
+          <input type="text" id="signupUsername" placeholder="Choose a username" autocomplete="username" required>
+          <p class="field-hint">Use at least 3 letters or numbers.</p>
+        </div>
+        <div class="input-group">
+          <label for="nickname">Nickname</label>
+          <input type="text" id="nickname" placeholder="What should we call you?" autocomplete="nickname" required>
+          <p class="field-hint">This name will appear in your welcome message.</p>
+        </div>
+        <div class="input-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="Create a password" autocomplete="new-password" required>
+          <p class="field-hint">Use at least 8 characters.</p>
+        </div>
+        <div class="input-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" placeholder="Enter your password again" autocomplete="new-password" required>
+        </div>
+        <p class="form-message error-message" id="signupError" role="alert"></p>
+        <button type="submit" class="login-button">Create Account</button>
+      </form>
+
+      <div class="additional-links">
+        <span>Already have an account?</span>
+        <a href="login.html">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js?v=5"></script>
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = document.getElementById("signupUsername").value.trim();
+      const nickname = document.getElementById("nickname").value.trim();
+      const password = document.getElementById("signupPassword").value;
+      const confirmation = document.getElementById("confirmPassword").value;
+      const error = document.getElementById("signupError");
+      error.style.display = "block";
+
+      if (!/^[A-Za-z0-9_]{3,30}$/.test(username)) {
+        error.textContent = "Username must be 3–30 characters and contain only letters, numbers, or underscores.";
+        return;
+      }
+      if (!nickname || nickname.length > 30) {
+        error.textContent = "Please enter a nickname of up to 30 characters.";
+        return;
+      }
+      if (password.length < 8) {
+        error.textContent = "Password must contain at least 8 characters.";
+        return;
+      }
+      if (password !== confirmation) {
+        error.textContent = "The passwords do not match.";
+        return;
+      }
+
+      const result = SanaAuth.register({ username, nickname, password });
+      if (!result.ok) {
+        error.textContent = result.message;
+        return;
+      }
+
+      SanaAuth.login(username, password);
+      window.location.href = "SANA.html";
+    });
+  </script>
+</body>
+</html>

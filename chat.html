@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with SANA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/chat.css">
+</head>
+<body class="sana-shell chat-refined">
+  <div data-sana-navbar data-active-page="support"></div>
+
+  <main class="chat-page">
+    <section class="chat-panel" aria-labelledby="chatTitle">
+      <header class="chat-header">
+        <div class="sana-mascot sana-mascot-large" aria-hidden="true"><span></span></div>
+        <div><h1 id="chatTitle">Talk to SANA</h1><p>Supportive conversation, grounded in responsible AI.</p></div>
+        <button type="button" id="newConversation" class="new-chat-btn">↻ New conversation</button>
+      </header>
+
+      <div class="chat-window" id="chatWindow" role="log" aria-live="polite" aria-label="Conversation"></div>
+      <div class="chat-status" id="chatStatus" aria-live="polite"></div>
+      <div class="action-chips" id="actionChips" aria-label="Suggested SANA tools"></div>
+
+      <form class="chat-composer" id="chatForm">
+        <textarea id="messageInput" maxlength="2000" rows="1" placeholder="Tell SANA what’s on your mind…" aria-label="Message SANA"></textarea>
+        <div class="composer-footer">
+          <span id="characterCount">0 / 2000</span>
+          <span class="composer-hint">Enter to send · Shift+Enter for a new line</span>
+          <button type="submit" id="sendButton" class="send-btn" aria-label="Send message">➤</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="chat-sidebar">
+      <section class="chat-side-card mood-context-card">
+        <span class="eyebrow">Your check-in</span>
+        <div class="mood-context-row"><span id="moodEmoji">🙂</span><div><h2>Today’s mood</h2><p id="moodText">No recent check-in yet.</p></div></div>
+      </section>
+      <section class="chat-side-card">
+        <span class="eyebrow">Quick tools</span>
+        <div class="quick-tools">
+          <a href="get-support.html#breathing">◌ <span>Breathing</span></a>
+          <a href="get-support.html#grounding">◎ <span>Grounding</span></a>
+          <a href="get-support.html#journal">▤ <span>Journal</span></a>
+          <a href="get-support.html#human-support">♡ <span>Human support</span></a>
+        </div>
+      </section>
+      <section class="chat-side-card privacy-note">
+        <span class="eyebrow">Private by design</span>
+        <p>This conversation is kept only in this browser tab and is cleared when you start a new conversation or close the tab.</p>
+      </section>
+      <section class="crisis-card" id="crisisCard">
+        <strong>Need urgent help?</strong>
+        <p>SANA is not an emergency service. If you may be in immediate danger, contact emergency services or a trusted person nearby.</p>
+        <a href="emergency.html">View emergency resources</a>
+      </section>
+    </aside>
+  </main>
+
+  <script src="components/navbar.js"></script>
+  <script src="auth.js?v=5"></script>
+  <script src="ai-config.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

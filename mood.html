@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANA - Mood Check-in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- 你自己的 CSS -->
+</head>
+
+<body>
+
+<div class="mood-page">
+
+    <h1 class="mood-title">How are you feeling right now?</h1>
+
+    <div class="mood-grid">
+        
+        <div class="mood-card" data-mood="very-low">
+            <div class="mood-emoji">😢</div>
+            <span class="mood-label">Very Low</span>
+        </div>
+
+        <div class="mood-card" data-mood="low">
+            <div class="mood-emoji">☹️</div>
+            <span class="mood-label">Low</span>
+        </div>
+
+        <div class="mood-card" data-mood="neutral">
+            <div class="mood-emoji">😐</div>
+            <span class="mood-label">Neutral</span>
+        </div>
+
+        <div class="mood-card" data-mood="good">
+            <div class="mood-emoji">🙂</div>
+            <span class="mood-label">Good</span>
+        </div>
+
+        <div class="mood-card" data-mood="great">
+            <div class="mood-emoji">😄</div>
+            <span class="mood-label">Great</span>
+        </div>
+
+    </div>
+
+    <a href="SANA.html" class="confirm-mood-btn" id="confirmMood">Confirm My Mood</a>
+
+
+</div>
+
+
+<!-- =============================
+      JavaScript 交互
+============================= -->
+<script>
+    const moodCards = document.querySelectorAll('.mood-card');
+    let selectedMood = localStorage.getItem('sana_recent_mood') || '';
+
+    moodCards.forEach(card => {
+        card.addEventListener('click', () => {
+
+            // 移除其他卡片的 selected 状态
+            moodCards.forEach(c => c.classList.remove('selected'));
+
+            // 给当前点击的卡片加 selected 状态
+            card.classList.add('selected');
+            selectedMood = card.dataset.mood;
+
+            // 如果你未来想记录情绪：
+            console.log("Selected mood:", card.dataset.mood);
+        });
+    });
+
+    document.getElementById('confirmMood').addEventListener('click', (event) => {
+        if (!selectedMood) {
+            event.preventDefault();
+            alert('Please select your mood first.');
+            return;
+        }
+        localStorage.setItem('sana_recent_mood', selectedMood);
+        localStorage.setItem('sana_recent_mood_at', new Date().toISOString());
+    });
+</script>
+
+</body>
+</html>

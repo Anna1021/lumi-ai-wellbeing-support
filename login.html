@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+</head>
+<body class="sana-shell auth-refined">
+  <div class="container">
+    <div class="login-card">
+      <a class="auth-brand" href="login.html"><img src="./image/a.png" alt="SANA logo"><span>SANA</span></a>
+      <h1 class="login-title">Welcome Back!</h1>
+      <p class="login-subtitle">Please log in to continue</p>
+
+      <!-- Login Form -->
+      <form class="login-form" id="loginForm" novalidate>
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" autocomplete="username" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+        </div>
+
+        <p class="form-message error-message" id="loginError" role="alert"></p>
+        <button type="submit" class="login-button">Log In</button>
+      </form>
+
+      <!-- Additional Links -->
+      <div class="additional-links">
+        <a href="#" class="forgot-password">Forgot Password?</a>
+        <a href="signup.html" class="sign-up">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js?v=5"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('loginError');
+      const button = event.currentTarget.querySelector('button[type="submit"]');
+      error.style.display = 'none';
+
+      if (!username || !password) {
+        error.textContent = 'Please enter both your username and password.';
+        error.style.display = 'block';
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Signing in…';
+
+      try {
+        if (!window.SanaAuth) throw new Error('Authentication failed to load');
+        const user = SanaAuth.login(username, password);
+
+        if (user) {
+          window.location.assign('SANA.html');
+          return;
+        }
+
+        error.textContent = 'Incorrect username or password. Please check capital letters and try again.';
+        error.style.display = 'block';
+      } catch (loginError) {
+        error.textContent = 'Login could not start. Please refresh the page and try again.';
+        error.style.display = 'block';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Log In';
+      }
+    });
+  </script>
+</body>
+</html>

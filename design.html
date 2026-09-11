@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SANA Evaluation</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="evaluation.css">
+</head>
+
+<body>
+
+<div data-sana-navbar></div>
+<main class="eval-container">
+
+  <!-- 顶部 Header -->
+  <header class="eval-header">
+    <a href="SANA.html" class="back-btn">← Back</a>
+    <h2 class="eval-title" data-text="evaluation-title">EVALUATION</h2>
+    <div id="progressText" class="progress-label">1 / 5</div>
+  </header>
+
+  <!-- 进度条 -->
+  <div class="progress-bar">
+    <div id="progressFill"></div>
+  </div>
+
+  <!-- 主卡片 -->
+  <div class="question-card">
+
+    <!-- Emojis -->
+    <div id="questionEmoji" class="question-emoji">🙂</div>
+
+    <!-- 题干 -->
+    <h3 id="questionText" class="question-title">
+      How do you feel today?
+    </h3>
+
+    <p class="question-hint">Choose how strongly you feel this right now.</p>
+
+    <!-- 动态评分按钮 -->
+    <div id="ratingRow" class="rating-row"></div>
+
+    <!-- 底部按钮 -->
+    <button id="nextBtn" class="next-btn">Next</button>
+    <button id="submitBtn" class="submit-btn" style="display:none;" data-text="submit-button">Submit</button>
+
+  </div>
+
+  <div class="bottom-nav">
+    <button class="skip-btn" id="skipBtn">Skip</button>
+  </div>
+
+</main>
+
+
+<!-- ======================= JS ======================= -->
+<script src="components/navbar.js"></script>
+<script>
+
+// ========== 多语言 ==========
+const translations = {
+  en: { "evaluation-title": "EVALUATION", "submit-button": "Submit" },
+  zh: { "evaluation-title": "评估", "submit-button": "提交" }
+};
+
+// 从 LocalStorage 获取语言设置
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = localStorage.getItem("language") || "en";
+  document.querySelector("[data-text='evaluation-title']").textContent = translations[lang]["evaluation-title"];
+  document.querySelector("[data-text='submit-button']").textContent = translations[lang]["submit-button"];
+});
+
+// ======== 题目数据（你可继续扩展） ========
+const questions = [
+  {
+    emoji: "🙂",
+    text: "How do you feel today?",
+    scale: ["😢","😕","😐","😊","😄"]
+  },
+  {
+    emoji: "🫂",
+    text: "Do you feel you have sufficient social support?",
+    scale: ["😞","😕","😐","🙂","😁"]
+  },
+  {
+    emoji: "🤔",
+    text: "How curious or open to new ideas do you feel?",
+    scale: ["😴","😐","🙂","😁","🤩"]
+  },
+  {
+    emoji: "📘",
+    text: "How organized and responsible do you feel?",
+    scale: ["😵","😕","😐","🙂","😎"]
+  },
+  {
+    emoji: "💛",
+    text: "How emotionally stable do you feel?",
+    scale: ["😣","😕","😐","🙂","😌"]
+  }
+];
+
+let current = 0;
+let answers = [];
+
+const emojiEl = document.getElementById("questionEmoji");
+const textEl = document.getElementById("questionText");
+const ratingRow = document.getElementById("ratingRow");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const skipBtn = document.getElementById("skipBtn");
+
+// =========== 加载第 1 题 ===========
+loadQuestion();
+
+function loadQuestion() {
+  const q = questions[current];
+  emojiEl.textContent = q.emoji;
+  textEl.textContent = q.text;
+
+  // 动态更新进度条
+  progressText.textContent = `${current + 1} / ${questions.length}`;
+  progressFill.style.width = `${(current) / questions.length * 100}%`;
+
+  // 渲染评分按钮
+  renderRating(q.scale);
+
+  // Next / Submit 按钮逻辑
+  nextBtn.style.display = current === questions.length - 1 ? "none" : "block";
+  submitBtn.style.display = current === questions.length - 1 ? "block" : "none";
+}
+
+// =========== 渲染 Emoji 评分按钮 ===========
+function renderRating(scale) {
+  ratingRow.innerHTML = "";
+  scale.forEach((emoji, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "rating-btn";
+    btn.innerHTML = emoji;
+
+    btn.onclick = () => {
+      document.querySelectorAll(".rating-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      answers[current] = idx;
+    };
+
+    ratingRow.appendChild(btn);
+  });
+}
+
+// =========== 下一题 ===========
+nextBtn.onclick = () => {
+  if (answers[current] === undefined) return alert("Please select an answer.");
+  current++;
+  loadQuestion();
+};
+
+// =========== Skip ===========
+skipBtn.onclick = () => {
+  answers[current] = null;
+  if (++current >= questions.length) return finish();
+  loadQuestion();
+};
+
+// =========== 完成评估 ===========
+submitBtn.onclick = finish;
+
+function finish() {
+  // 保存到 localStorage（结果页使用）
+  localStorage.setItem("sana_scores", JSON.stringify(answers));
+
+  // 跳转结果页
+  window.location.href = "result.html";
+}
+
+</script>
+
+</body>
+</html>

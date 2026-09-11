@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-text="title">Congratulations</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // 初始化语言映射
+    const translations = {
+      en: {
+        title: "Congratulations",
+        "title-main": "Congratulations!",
+        "subtitle-main": "Weekly Emotion Records",
+        "record-date": "Date: ",
+        "record-score": "Score: ",
+        "button-details": "Details",
+        "button-home": "Back to Home",
+        "button-report": "View Report",
+        happiness: "Happiness",
+        sadness: "Sadness",
+        anger: "Anger",
+        neutral: "Neutral",
+      },
+      zh: {
+        title: "恭喜",
+        "title-main": "恭喜！",
+        "subtitle-main": "每周情绪记录",
+        "record-date": "日期：",
+        "record-score": "得分：",
+        "button-details": "详情",
+        "button-home": "返回首页",
+        "button-report": "查看报告",
+        happiness: "快乐",
+        sadness: "悲伤",
+        anger: "愤怒",
+        neutral: "平静",
+      }
+    };
+
+    // 更新语言函数
+    function updateLanguage(lang) {
+      document.querySelectorAll("[data-text]").forEach((el) => {
+        const key = el.getAttribute("data-text");
+        el.textContent = translations[lang][key];
+      });
+
+      // 更新图表标签
+      const charts = Chart.instances;
+      Object.values(charts).forEach((chart) => {
+        chart.data.labels = [
+          translations[lang].happiness,
+          translations[lang].sadness,
+          translations[lang].anger,
+          translations[lang].neutral,
+        ];
+        chart.update();
+      });
+    }
+
+    // 初始化设置
+    document.addEventListener("DOMContentLoaded", () => {
+      const textSize = localStorage.getItem("textSize") || "medium";
+      const language = localStorage.getItem("language") || "en";
+
+      document.body.style.fontSize = textSize === "small" ? "14px" : textSize === "large" ? "18px" : "16px";
+      updateLanguage(language);
+    });
+
+    // 动态生成记录
+    const records = [
+      { date: "23/09/2024", score: 7, chartData: [40, 30, 20, 10] },
+      { date: "30/09/2024", score: 8, chartData: [50, 20, 15, 15] },
+      { date: "07/10/2024", score: 6, chartData: [35, 25, 25, 15] },
+    ];
+
+    function renderRecords() {
+      const container = document.querySelector(".records-container");
+      records.forEach((record, index) => {
+        const recordHTML = `
+          <div class="record">
+            <div class="record-header">
+              <span class="record-date" data-text="record-date">${translations.en["record-date"]} ${record.date}</span>
+              <span class="record-score" data-text="record-score">${translations.en["record-score"]} ${record.score}</span>
+            </div>
+            <button class="detail-button" onclick="toggleChart('chart${index + 1}', ${JSON.stringify(
+          record.chartData
+        )})" data-text="button-details">Details</button>
+            <div class="chart-container" id="chart${index + 1}" style="display: none;">
+              <canvas id="chartCanvas${index + 1}"></canvas>
+            </div>
+          </div>`;
+        container.insertAdjacentHTML("beforeend", recordHTML);
+      });
+    }
+
+    function toggleChart(chartId, data) {
+      const allCharts = document.querySelectorAll(".chart-container");
+      allCharts.forEach((chart) => {
+        if (chart.id !== chartId) {
+          chart.style.display = "none";
+        }
+      });
+
+      const chartContainer = document.getElementById(chartId);
+      if (chartContainer.style.display === "none") {
+        chartContainer.style.display = "block";
+        drawChart(chartId, data);
+      } else {
+        chartContainer.style.display = "none";
+      }
+    }
+
+    function drawChart(chartId, data) {
+      const ctx = document.getElementById(`chartCanvas${chartId.slice(-1)}`).getContext("2d");
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Happiness", "Sadness", "Anger", "Neutral"],
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ["#FFCE56", "#FF6384", "#36A2EB", "#FF9F40"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || "";
+                  const value = context.raw || 0;
+                  return `${label}: ${value}%`;
+                },
+              },
+            },
+          },
+        },
+      });
+    }
+
+    function goHome() {
+      window.location.href = "SANA.html";
+    }
+
+    function viewReport() {
+      window.location.href = "report.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", renderRecords);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1 class="title" data-text="title-main">Congratulations!</h1>
+      <h2 class="subtitle" data-text="subtitle-main">Weekly Emotion Records</h2>
+
+      <!-- Records Section -->
+      <div class="records-container"></div>
+
+      <!-- Navigation Buttons -->
+      <div class="button-group">
+        <button class="nav-button" onclick="goHome()" data-text="button-home">Back to Home</button>
+        <button class="nav-button" onclick="viewReport()" data-text="button-report">View Report</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

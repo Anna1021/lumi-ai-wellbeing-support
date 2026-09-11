@@ -1,0 +1,33 @@
+:root {
+  --page-max-width: 1560px;
+  --page-side-padding: 44px;
+  --font-xs: 14px;
+  --font-sm: 16px;
+  --font-md: 18px;
+  --font-lg: 22px;
+  --sana-blue: #1688f8;
+  --sana-blue-dark: #083b82;
+  --sana-pink: #ff9fc7;
+  --sana-lilac: #b9b8ff;
+  --sana-mint: #55d88c;
+  --sana-bg: #edf5ff;
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-solid: #ffffff;
+  --text-primary: #082b64;
+  --text-secondary: #5e7397;
+  --border-soft: rgba(255, 255, 255, 0.78);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 30px;
+  --shadow-soft: 0 12px 34px rgba(45, 91, 155, 0.12);
+  --shadow-card: 0 8px 22px rgba(46, 84, 142, 0.1);
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 36px;
+  --font-ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (max-width: 1199px) { :root { --page-side-padding: 28px; --font-xs: 13px; --font-sm: 15px; --font-md: 17px; --font-lg: 20px; } }

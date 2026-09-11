@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 页面整体样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Fira Code', monospace;
+            background: linear-gradient(-215deg, #5BA8EE, #9DB8E0, #F2CECE);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 主容器 */
+        .report-container {
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        /* 图表部分 */
+        .chart-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-box {
+            width: 100%;
+            height: 400px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 文字分析部分 */
+        .analysis-section {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .analysis-section h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #3090E9;
+        }
+
+        .analysis-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+
+
+        /* 响应式调整 */
+        @media screen and (max-width: 768px) {
+            .report-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .chart-box {
+                height: 300px;
+            }
+
+            .analysis-section {
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 返回按钮 -->
+    <a href="SANA.html" class="back-button">← Back</a>
+
+    <!-- 主内容容器 -->
+    <div class="report-container">
+        <!-- 图表部分 -->
+        <div class="chart-section">
+            <div class="chart-box">
+                <canvas id="emotion-line-chart"></canvas>
+            </div>
+            <div class="chart-box">
+                <canvas id="comparison-bar-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- 文字分析部分 -->
+         <div class="analysis-section">
+        <h3>Analysis</h3>
+        <p>Your emotional score ranged between <strong>5</strong> and <strong>9</strong> in the past week. You experienced your happiest moment on <strong>2024-11-05</strong>.</p>
+        <p>This week shows an overall improvement in your emotional stability. Compared to last week, your scores have become more consistent, especially between <strong>2024-11-03</strong> and <strong>2024-11-05</strong>.</p>
+        <p>Consider activities like meditation or journaling to keep up the positive momentum. Reflecting on what worked well during your happiest moments can help maintain or even improve your emotional state in the future.</p>
+    </div>
+</div>
+
+    <script>
+        // 配置 Chart.js
+        document.addEventListener("DOMContentLoaded", () => {
+            const emotionLineChart = document.getElementById("emotion-line-chart").getContext("2d");
+            const comparisonBarChart = document.getElementById("comparison-bar-chart").getContext("2d");
+
+            // Line Chart 数据
+            new Chart(emotionLineChart, {
+                type: "line",
+                data: {
+                    labels: ["2024-11-01", "2024-11-02", "2024-11-03", "2024-11-04", "2024-11-05"],
+                    datasets: [{
+                        label: "Emotional Score",
+                        data: [7, 8, 6, 5, 9],
+                        borderColor: "#61A9ED",
+                        tension: 0.3,
+                        pointBackgroundColor: "#FFD700",
+                        pointRadius: 5,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true, position: "top" },
+                    },
+                    scales: {
+                        x: { title: { display: true, text: "Date", color: "#333" } },
+                        y: { title: { display: true, text: "Score", color: "#333" }, suggestedMin: 0, suggestedMax: 10 },
+                    },
+                },
+            });
+
+            // Bar Chart 数据
+            new Chart(comparisonBarChart, {
+                type: "bar",
+                data: {
+                    labels: ["2024-11-01", "2024-11-02", "2024-11-03", "2024-11-04", "2024-11-05"],
+                    datasets: [
+                        { label: "Last Week", data: [6, 7, 5, 6, 8], backgroundColor: "#61A9ED" },
+                        { label: "This Week", data: [7, 8, 6, 5, 9], backgroundColor: "#FFD700" },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true, position: "top" },
+                    },
+                    scales: {
+                        x: { title: { display: true, text: "Date", color: "#333" } },
+                        y: { title: { display: true, text: "Score", color: "#333" }, suggestedMin: 0, suggestedMax: 10 },
+                    },
+                },
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+

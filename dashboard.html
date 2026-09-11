@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SANA – Mood Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/pages/dashboard.css" />
+</head>
+<body class="sana-shell dashboard-refined">
+
+  <div data-sana-navbar data-active-page="mood"></div>
+
+  <div class="dashboard-page">
+    <div class="dashboard-inner">
+        <div class="dashboard-back-wrapper">
+        <a href="SANA.html" class="dashboard-back-btn">← Back</a>
+        </div>
+
+
+      <!-- 标题 -->
+      <div class="dashboard-heading"><div><h1 class="dashboard-title">Your Mood Overview</h1><p>A small step every day makes a brighter you.</p></div><span class="sana-chip">This week⌄</span></div>
+
+      <!-- 上半部分：3 列 2 行网格 -->
+      <div class="dashboard-grid">
+        <!-- Average Mood -->
+        <div class="glass-card stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">Average Mood</span>
+            <span class="stat-icon">﹌</span>
+          </div>
+          <div class="stat-main">
+            <span class="stat-icon-large">📉</span>
+            <span class="stat-value">3.7</span>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card streak-card">
+          <div class="stat-card-header"><span class="stat-label">Current Streak</span><span class="stat-icon">🔥</span></div>
+          <div class="stat-main"><span class="stat-value">5 days</span></div>
+          <span class="stat-note">You’re doing great!</span>
+        </div>
+
+        <!-- Active Days -->
+        <div class="glass-card stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">Active Days</span>
+            <span class="stat-icon">📅</span>
+          </div>
+          <div class="stat-main">
+            <span class="stat-icon-large">✅</span>
+            <span class="stat-value">6</span>
+          </div>
+        </div>
+
+      </div>
+      <section class="analytics-grid" aria-label="Mood analytics">
+        <div class="glass-card chart-card"><canvas id="moodTrendChart"></canvas></div>
+        <div class="glass-card stat-card-donut">
+          <div class="stat-card-header">
+            <span class="stat-label">Mood Distribution</span>
+          </div>
+
+          <div class="donut-layout">
+            <div class="donut-wrapper">
+              <canvas id="moodDonutChart"></canvas>
+            </div>
+            <div class="mood-legend">
+              <div class="mood-legend-item">
+                <span class="dot dot-positive"></span> Positive
+              </div>
+              <div class="mood-legend-item">
+                <span class="dot dot-neutral"></span> Neutral
+              </div>
+              <div class="mood-legend-item">
+                <span class="dot dot-negative"></span> Negative
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 下半部分：Weekly insights + Recommendations -->
+      <div class="dashboard-bottom-row">
+        <!-- 左侧 Weekly insights -->
+        <div class="bottom-left">
+          <h2 class="section-title">Weekly insights</h2>
+          <div class="insights-row">
+            <div class="glass-card insight-card">
+              <div class="insight-title">
+                <span class="insight-icon">📈</span>
+                <span>Weekly Positivity: Trend</span>
+              </div>
+              <p class="insight-text">
+                Your average mood increased by 12% vs last week.
+              </p>
+            </div>
+
+            <div class="glass-card insight-card">
+              <div class="insight-title">
+                <span class="insight-icon">📆</span>
+                <span>Consistency score</span>
+              </div>
+              <p class="insight-text">
+                You checked in 6/7 days, stable emotional recording.
+              </p>
+            </div>
+
+            <div class="glass-card insight-card">
+              <div class="insight-title">
+                <span class="insight-icon">🔍</span>
+                <span>Emotional Pattern</span>
+              </div>
+              <p class="insight-text">
+                Your strongest mood usually appears on Wednesday afternoons.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧 Recommendations -->
+        <div class="bottom-right">
+          <h2 class="section-title">Recommendations</h2>
+          <div class="glass-card recommendation-card">
+            <div class="reco-item">
+              <div class="reco-icon">💡</div>
+              <div class="reco-text">
+                Try writing down one good thing in the morning.
+              </div>
+            </div>
+            <div class="reco-item">
+              <div class="reco-icon">🎧</div>
+              <div class="reco-text">
+                Chat with SANA if your mood dips below 3.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+<script src="components/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  /* ========== 全局默认样式 ========== */
+  Chart.defaults.font.family =
+    "'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = "#7a86a0";
+
+  Chart.defaults.plugins.tooltip.backgroundColor = "rgba(13, 24, 58, 0.96)";
+  Chart.defaults.plugins.tooltip.borderWidth = 0;
+  Chart.defaults.plugins.tooltip.cornerRadius = 10;
+  Chart.defaults.plugins.tooltip.padding = 10;
+  Chart.defaults.plugins.tooltip.displayColors = false;
+  Chart.defaults.plugins.tooltip.titleColor = "#ffffff";
+  Chart.defaults.plugins.tooltip.bodyColor = "#e4ebff";
+  Chart.defaults.plugins.tooltip.titleFont = { weight: "600" };
+
+  /* ========== 阴影插件（折线 & Donut） ========== */
+  const dropShadowPlugin = {
+    id: "dropShadow",
+    beforeDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx, chartArea } = chart;
+      if (!chartArea) return;
+
+      // 只对 line / doughnut 做阴影
+      if (chart.config.type !== "line" && chart.config.type !== "doughnut")
+        return;
+
+      ctx.save();
+      ctx.shadowColor =
+        chart.config.type === "line"
+          ? "rgba(42, 118, 255, 0.55)"
+          : "rgba(47, 140, 255, 0.5)";
+      ctx.shadowBlur = 16;
+      ctx.shadowOffsetY = 10;
+    },
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx } = chart;
+      ctx.restore();
+    },
+  };
+
+  Chart.register(dropShadowPlugin);
+
+  /* ========== 折线图 ========== */
+  const ctxLine = document.getElementById("moodTrendChart").getContext("2d");
+  const gradient = ctxLine.createLinearGradient(0, 0, 0, 260);
+  gradient.addColorStop(0, "rgba(48,144,233,0.35)");
+  gradient.addColorStop(1, "rgba(48,144,233,0)");
+
+  new Chart(ctxLine, {
+    type: "line",
+    data: {
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          data: [2.6, 2.9, 3.3, 2.8, 2.9, 3.2, 3.6],
+          borderColor: "#2F8CFF",
+          borderWidth: 3,
+          backgroundColor: gradient,
+          tension: 0.42,
+          fill: true,
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointBorderWidth: 2,
+          pointBackgroundColor: "#2F8CFF",
+          pointBorderColor: "#ffffff",
+          segment: {
+            borderCapStyle: "round",
+          },
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => items[0].label,
+            label: (item) => `Mood: ${item.formattedValue}`,
+          },
+        },
+      },
+      layout: {
+        padding: { left: 8, right: 18, top: 10, bottom: 4 },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: "#7a86a0",
+            font: { family: "Inter", size: 12 },
+          },
+        },
+        y: {
+          grid: {
+            color: "rgba(0,0,0,0.03)",
+            drawBorder: false,
+          },
+          ticks: { display: false },
+          border: { display: false },
+          suggestedMin: 2.4,
+          suggestedMax: 3.8,
+        },
+      },
+      elements: {
+        line: {
+          capBezierPoints: true,
+        },
+      },
+      interaction: {
+        intersect: false,
+        mode: "index",
+      },
+      animation: {
+        duration: 900,
+        easing: "easeOutQuart",
+      },
+    },
+  });
+
+  /* ========== Donut 图 ========== */
+  const ctxDonut = document.getElementById("moodDonutChart").getContext("2d");
+
+  new Chart(ctxDonut, {
+    type: "doughnut",
+    data: {
+      labels: ["Positive", "Neutral", "Negative"],
+      datasets: [
+        {
+          data: [62, 21, 17],
+          backgroundColor: ["#2F8CFF", "#9FA8DA", "#F6A9D6"],
+          borderWidth: 0,
+          hoverOffset: 4,
+          cutout: "72%",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      rotation: -90 * (Math.PI / 180), // 从正上方开始
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => `${item.label}: ${item.parsed}%`,
+          },
+        },
+      },
+      layout: {
+        padding: 6,
+      },
+    },
+    plugins: [
+      {
+        // 中间淡淡高光
+        id: "innerHighlight",
+        afterDraw(chart, args, options) {
+          const { ctx, chartArea } = chart;
+          if (!chartArea) return;
+          const centerX = (chartArea.left + chartArea.right) / 2;
+          const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+          const radius = chart.getDatasetMeta(0).data[0].outerRadius * 0.72;
+
+          const grd = ctx.createRadialGradient(
+            centerX,
+            centerY - 8,
+            radius * 0.05,
+            centerX,
+            centerY,
+            radius
+          );
+          grd.addColorStop(0, "rgba(255,255,255,0.95)");
+          grd.addColorStop(1, "rgba(255,255,255,0)");
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.fillStyle = grd;
+          ctx.fill();
+          ctx.restore();
+        },
+      },
+    ],
+  });
+</script>
+</body>
+</html>

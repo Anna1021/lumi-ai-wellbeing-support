@@ -1,0 +1,4 @@
+.sana-main, .sana-page-container { width: min(var(--page-max-width), calc(100% - (var(--page-side-padding) * 2))); margin: 0 auto; padding: 36px 0 58px; }
+.sana-page-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.sana-grid { display: grid; gap: var(--space-md); }
+@media (max-width: 760px) { .sana-main, .sana-page-container { padding-bottom: 100px; } .sana-page-heading { flex-direction: column; } }

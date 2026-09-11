@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SANA – Get Support</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/pages/support.css" />
+</head>
+<body class="sana-shell support-refined">
+
+  <div data-sana-navbar data-active-page="support"></div>
+
+  <!-- ================= GET SUPPORT 主体 ================= -->
+  <main class="support-page sana-page-container">
+
+    <!-- 顶部标题区 -->
+    <section class="support-header">
+      <div class="support-back">
+        <a href="SANA.html" class="support-back-btn">〈 Back</a>
+      </div>
+
+      <h1 class="support-title">Get Support</h1>
+      <p class="support-subtitle">
+        Choose what you need right now – calm down, talk to SANA, or reach a human listener.
+      </p>
+    </section>
+
+    <!-- ======= 主体两列布局 ======= -->
+    <section class="support-grid">
+
+      <!-- ========== 左列：自助工具 + AI ========== -->
+      <div class="support-column-left">
+
+        <!-- 当前状态小条（可以后接真实数据） -->
+        <div class="support-status-chip">
+          <span class="status-dot"></span>
+          Last check-in: <strong>mood slightly low, but stable.</strong>
+        </div>
+
+        <h2 class="support-section-label">Instant Relief</h2>
+
+        <!-- 呼吸练习 -->
+        <button id="breathing" class="support-card support-card-row" onclick="location.href='breathing.html'">
+          <div class="support-icon-circle">
+            <span class="support-icon-inner">🫁</span>
+          </div>
+          <div class="support-card-text">
+            <div class="support-card-title">Breathing exercise</div>
+            <div class="support-card-desc">3-minute guided breathing to slow things down.</div>
+          </div>
+          <span class="support-chip">3 min</span>
+          <span class="support-arrow">›</span>
+        </button>
+
+        <!-- Grounding -->
+        <button id="grounding" class="support-card support-card-row" onclick="location.href='grounding.html'">
+          <div class="support-icon-circle">
+            <span class="support-icon-inner">🌱</span>
+          </div>
+          <div class="support-card-text">
+            <div class="support-card-title">Grounding</div>
+            <div class="support-card-desc">5-senses grounding to come back to the present.</div>
+          </div>
+          <span class="support-chip">5 min</span>
+          <span class="support-arrow">›</span>
+        </button>
+
+        <!-- 日记 / 反思 -->
+        <button id="journal" class="support-card support-card-row" onclick="location.href='journal.html'">
+          <div class="support-icon-circle">
+            <span class="support-icon-inner">📓</span>
+          </div>
+          <div class="support-card-text">
+            <div class="support-card-title">Quick journaling</div>
+            <div class="support-card-desc">Write down what happened and how you feel.</div>
+          </div>
+          <span class="support-chip">Open</span>
+          <span class="support-arrow">›</span>
+        </button>
+
+        <!-- AI Listener：重点按钮 -->
+        <button class="support-card support-card-row support-card-large support-card-primary"
+                onclick="location.href='chat.html'">
+          <div class="support-icon-circle support-icon-ai">
+            <span class="support-sana-mascot" aria-hidden="true"><i></i></span>
+          </div>
+          <div class="support-card-text">
+            <div class="support-card-title">Talk to SANA AI</div>
+            <div class="support-card-desc">
+              A gentle conversation with emotional understanding and coping suggestions.
+            </div>
+          </div>
+          <span class="support-chip support-chip-primary">Instant</span>
+          <span class="support-arrow">›</span>
+        </button>
+
+      </div>
+
+      <!-- ========== 右列：人工支持 + 安全 ========== -->
+      <div class="support-column-right">
+
+        <!-- 人工支持：同学 & 专业人士 -->
+        <section id="human-support" class="support-card support-human-card">
+          <div class="support-human-header">
+            <h2 class="support-section-label">Human Support</h2>
+            <span class="support-human-note">Beta</span>
+          </div>
+
+          <div class="support-human-row">
+            <div class="support-human-main">
+              <div class="support-human-title">
+                👥 Peer listener (student)
+              </div>
+              <div class="support-human-desc">
+                Talk anonymously with a trained peer when available.
+              </div>
+              <div class="support-human-meta">
+                Typical reply: <strong>10–20 min</strong>
+              </div>
+            </div>
+            <button class="support-human-btn" disabled>
+              Waitlist
+            </button>
+          </div>
+
+          <div class="support-divider"></div>
+
+          <div class="support-human-row">
+            <div class="support-human-main">
+              <div class="support-human-title">
+                🩺 Campus / professional support
+              </div>
+              <div class="support-human-desc">
+                View counselling, mental-health clinic, and helpline contacts.
+              </div>
+              <div class="support-human-meta">
+                You can export these to your phone as contacts.
+              </div>
+            </div>
+            <button class="support-human-btn secondary"
+                    onclick="location.href='resources.html'">
+              View contacts
+            </button>
+          </div>
+        </section>
+
+        <!-- 情绪趋势 + 推荐方式 -->
+        <section class="support-card support-emotion-card">
+          <div class="support-emotion-header">
+            <div class="support-card-title">Your emotional pattern</div>
+            <span class="support-emotion-tag">Past 7 days</span>
+          </div>
+
+          <div class="support-emotion-body">
+            <div>
+              <div class="support-emotion-legend">
+                <span class="legend-dot legend-today"></span> Mood
+                <span class="legend-dot legend-week"></span> Energy
+              </div>
+
+              <!-- 简单「折线」背景 -->
+              <div class="support-emotion-chart">
+                <div class="chart-line chart-line-week"></div>
+                <div class="chart-line chart-line-today"></div>
+              </div>
+            </div>
+
+            <div class="support-emotion-side">
+              <div class="support-emotion-emoji">🙂</div>
+              <div class="support-emotion-text">
+                Overall: <strong>slightly below average</strong><br>
+                SANA suggests: <span>gentle support + grounding</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 推荐组合动作 -->
+        <section class="support-card support-flow-card">
+          <h2 class="support-section-label small">Suggested flow</h2>
+
+          <ol class="support-flow-list">
+            <li>Start with <strong>3-minute breathing</strong> to calm your body.</li>
+            <li>Write a <strong>short journal entry</strong> about what triggered you.</li>
+            <li>Share it with <strong>SANA AI</strong> and explore coping ideas.</li>
+          </ol>
+        </section>
+
+        <!-- 紧急工具栏 -->
+        <section class="support-emergency-bar">
+          <div class="support-emergency-text">
+            In crisis or feeling unsafe?  
+            <strong>SANA is not an emergency service.</strong>
+          </div>
+          <a href="emergency.html" class="support-emergency-btn">
+            View emergency toolkit
+          </a>
+        </section>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="components/navbar.js"></script>
+</body>
+</html>
