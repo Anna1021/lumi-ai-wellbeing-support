@@ -26,7 +26,9 @@
 .support-refined .support-card-primary { background: linear-gradient(135deg,rgba(225,244,255,.94),rgba(239,232,255,.91)); }
 .support-refined .support-human-card, .support-refined .support-emotion-card, .support-refined .support-flow-card { margin: 0; padding: 24px; }
 .support-refined .support-human-row { padding: 13px 0; }
-.support-refined .support-human-btn { border-radius: 999px; background: linear-gradient(135deg,#1ca1ff,#1778ef); box-shadow: 0 7px 16px rgba(22,127,235,.2); }
+.support-refined .support-human-btn { min-width: 126px; padding: 10px 17px; border: 1px solid transparent; border-radius: 999px; color: #fff; background: linear-gradient(135deg,#1ca1ff,#1778ef); box-shadow: 0 7px 16px rgba(22,127,235,.2); }
+.support-refined .support-human-btn.secondary { color: #075fc6; background: #fff; border-color: #b9dcff; box-shadow: none; }
+.support-refined .support-human-btn:disabled { color: #526b8f; background: #e7eef8; border-color: #d5e1f1; opacity: 1; }
 .support-refined .support-emergency-bar { margin-top: 0; border: 1px solid rgba(255,255,255,.7); border-radius: 18px; background: linear-gradient(135deg,#ffd7e3,#ffc9da); box-shadow: var(--shadow-card); }
 .support-refined .support-emergency-btn { border-radius: 999px; }
 @media (max-width: 820px) { .support-refined .support-grid { grid-template-columns: 1fr; } }
