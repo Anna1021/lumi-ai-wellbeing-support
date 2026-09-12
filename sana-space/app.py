@@ -149,19 +149,19 @@ def demo_chat(message: str, history: list[dict[str, str]]) -> str:
     if result.get("error") == "invalid_message":
         return "Please enter a message of up to 2,000 characters."
     if result.get("error") == "gpu_quota_exceeded":
-        return "SANA needs a Hugging Face sign-in to request ZeroGPU time. Use the sign-in button above, then send your message again."
-    return "SANA could not generate a response. Please try again shortly; the server logs contain the safe diagnostic details."
+        return "Lumi needs a Hugging Face sign-in to request ZeroGPU time. Use the sign-in button above, then send your message again."
+    return "Lumi could not generate a response. Please try again shortly; the server logs contain the safe diagnostic details."
 
 
 if os.getenv("SANA_SKIP_MODEL_LOAD") != "1":
     get_model()
 
-with gr.Blocks(title="SANA AI Service") as demo:
+with gr.Blocks(title="Lumi AI Service") as demo:
     gr.Markdown(
-        "# SANA AI\n"
-        "A supportive conversation demo for the SANA student wellbeing app. "
+        "# Lumi AI\n"
+        "A supportive conversation demo for the Lumi student wellbeing app. "
         "Share what is on your mind below.\n\n"
-        "> SANA is not a therapist or emergency service. If you may be in immediate danger, "
+        "> Lumi is not a therapist or emergency service. If you may be in immediate danger, "
         "contact local emergency services or a trusted person nearby."
     )
     gr.LoginButton("Sign in with Hugging Face for ZeroGPU access")
@@ -170,7 +170,7 @@ with gr.Blocks(title="SANA AI Service") as demo:
         type="messages",
         chatbot=gr.Chatbot(type="messages", height=480, placeholder="Your conversation will appear here."),
         textbox=gr.Textbox(
-            placeholder="Tell SANA how you are feeling...",
+            placeholder="Tell Lumi how you are feeling...",
             max_lines=5,
             max_length=2000,
         ),

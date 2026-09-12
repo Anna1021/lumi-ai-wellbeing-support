@@ -42,11 +42,11 @@ def crisis_response(level: str) -> str:
     if level == "imminent":
         return (
             "I’m really concerned that you may be in immediate danger. Please contact emergency services now, "
-            "or go to a trusted person nearby and tell them you need help staying safe. Open SANA’s emergency "
+            "or go to a trusted person nearby and tell them you need help staying safe. Open Lumi’s emergency "
             "resources below for verified options in your area—please don’t stay alone with this right now."
         )
     return (
         "Thank you for telling me. Your safety matters more than continuing an ordinary chat right now. "
-        "Could you reach out to someone you trust or a qualified support service, and use SANA’s emergency "
+        "Could you reach out to someone you trust or a qualified support service, and use Lumi’s emergency "
         "resources below? If you might act soon or cannot stay safe, contact emergency services immediately."
     )

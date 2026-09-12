@@ -107,7 +107,7 @@
       const host = document.createElement("div");
       host.dataset.sanaNavbar = "";
       host.dataset.activePage = "home";
-      host.innerHTML = window.SanaComponents.createNavbar("home");
+      host.innerHTML = window.SanaComponents.createNavbar("home", { brand: existing.dataset.brand || "sana" });
       existing.replaceWith(host);
     };
     if (window.SanaComponents) return mount();

@@ -13,8 +13,13 @@
   backdrop-filter: blur(18px);
 }
 .sana-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.sana-brand-lockup { display: grid; gap: 3px; }
 .sana-brand-mark { width: 43px; height: 43px; border-radius: 13px; padding: 8px; background: white; box-shadow: var(--shadow-card); }
 .sana-brand-name { font: 700 22px/1 var(--font-display); letter-spacing: .24em; color: #061f53; }
+.lumi-nav .sana-brand { gap: 10px; }
+.lumi-nav .sana-brand-name { font-family: var(--font-ui); font-size: 26px; letter-spacing: -.055em; }
+.lumi-brand-mark { padding: 0; background: transparent; box-shadow: none; }
+.lumi-tagline { color: #5c78a7; font: 500 12px/1.1 var(--font-ui); letter-spacing: 0; white-space: nowrap; }
 .sana-nav-links { display: flex; align-items: center; gap: 12px; }
 .sana-nav-link { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 16px; border-radius: 14px; color: #23466f; font-size: 16px; font-weight: 600; text-decoration: none; transition: .2s ease; }
 .sana-nav-link:hover, .sana-nav-link.is-active { color: #075fc6; background: rgba(225,239,255,.88); }

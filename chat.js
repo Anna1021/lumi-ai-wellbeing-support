@@ -84,7 +84,7 @@
     setSending(true);
     const typing = appendTyping();
     const wakeTimer = window.setTimeout(() => {
-      status.textContent = "Just a moment — SANA is waking up.";
+      status.textContent = "Just a moment — Lumi is waking up.";
     }, 1600);
 
     try {
@@ -105,7 +105,7 @@
       if (result.safety && result.safety !== "normal") crisisCard.classList.add("is-visible");
     } catch (error) {
       typing.remove();
-      appendMessage("assistant", "SANA is having trouble responding right now. Please try again in a moment.");
+      appendMessage("assistant", "Lumi is having trouble responding right now. Please try again in a moment.");
       showStatus("The AI service may be sleeping or unavailable. Emergency resources remain available.", "error");
     } finally {
       window.clearTimeout(wakeTimer);
@@ -117,7 +117,7 @@
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 90000);
     try {
-      const endpoint = window.SANA_AI_CONFIG && SANA_AI_CONFIG.endpoint || "/api/chat";
+      const endpoint = window.LUMI_AI_CONFIG && LUMI_AI_CONFIG.endpoint || "/api/chat";
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -141,7 +141,7 @@
     const avatar = document.createElement("div");
     if (role === "assistant") {
       avatar.className = "sana-mascot";
-      avatar.setAttribute("aria-label", "SANA");
+      avatar.setAttribute("aria-label", "Lumi");
       avatar.appendChild(document.createElement("span"));
     } else {
       avatar.className = "user-chat-avatar";
@@ -165,7 +165,7 @@
     avatar.appendChild(document.createElement("span"));
     const bubble = document.createElement("div");
     bubble.className = "message-bubble typing";
-    bubble.setAttribute("aria-label", "SANA is responding");
+    bubble.setAttribute("aria-label", "Lumi is responding");
     for (let index = 0; index < 3; index++) bubble.appendChild(document.createElement("i"));
     row.append(avatar, bubble);
     chatWindow.appendChild(row);
@@ -213,8 +213,8 @@
 
   function localCrisisResponse(level) {
     return level === "imminent"
-      ? "I’m really concerned that you may be in immediate danger. Please contact emergency services now, or go to a trusted person nearby and tell them you need help staying safe. Open SANA’s emergency resources below for verified options in your area—please don’t stay alone with this right now."
-      : "Thank you for telling me. Your safety matters more than continuing an ordinary chat right now. Please reach out to someone you trust or a qualified support service and open SANA’s emergency resources below. If you might act soon or cannot stay safe, contact emergency services immediately.";
+      ? "I’m really concerned that you may be in immediate danger. Please contact emergency services now, or go to a trusted person nearby and tell them you need help staying safe. Open Lumi’s emergency resources below for verified options in your area—please don’t stay alone with this right now."
+      : "Thank you for telling me. Your safety matters more than continuing an ordinary chat right now. Please reach out to someone you trust or a qualified support service and open Lumi’s emergency resources below. If you might act soon or cannot stay safe, contact emergency services immediately.";
   }
 
   function setSending(value) {
