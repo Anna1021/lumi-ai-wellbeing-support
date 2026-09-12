@@ -17,7 +17,7 @@
 .support-refined button.support-card { min-height: 92px; margin: 0; padding: 18px 20px; text-align: left; transition: transform .2s ease, box-shadow .2s ease; }
 .support-refined button.support-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
 .support-refined .support-icon-circle { display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 15px; background: linear-gradient(145deg,#e3f5ff,#f2efff); }
-.support-sana-mascot { position: relative; width: 31px; height: 31px; border-radius: 48% 52% 45% 55%; background: linear-gradient(145deg,#bcecff,#cabdff 56%,#ffb9d5); box-shadow: 0 5px 12px rgba(74,93,160,.16); }
+.support-sana-mascot { position: relative; width: 31px; height: 31px; border-radius: 50%; background: radial-gradient(circle at 33% 25%,#e9f8ff 0 15%,transparent 16%),linear-gradient(145deg,#bcecff,#cabdff 56%,#ffb9d5); box-shadow: 5px 6px 12px rgba(74,93,160,.2); }
 .support-sana-mascot::before,.support-sana-mascot::after{content:"";position:absolute;top:11px;width:3px;height:4px;border-radius:50%;background:#164c8f}.support-sana-mascot::before{left:9px}.support-sana-mascot::after{right:9px}.support-sana-mascot i{position:absolute;left:50%;bottom:6px;width:9px;height:5px;transform:translateX(-50%);border-bottom:2px solid #164c8f;border-radius:50%}
 #breathing,#grounding,#journal,#human-support{scroll-margin-top:24px}
 .support-refined .support-card-title, .support-refined .support-human-title { color: var(--text-primary); }
