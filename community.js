@@ -3,7 +3,7 @@
   const user = window.SanaAuth?.currentUser?.() || { username: "guest", nickname: "You" };
   const seed = [
     { id:"music-1", author:"User 1", username:"user1", avatar:"./image/avatar.jpg", category:"music", text:"This song always brightens my mood whenever I listen to it. Highly recommend!", likes:30, createdAt:Date.now()-7200000, comments:[] },
-    { id:"johnny-1", author:"Johnny Xu", username:"johnny", avatar:"./image/johnny-avatar.JPG", category:"life", text:"The recent study pressure has been quite intense, but swimming always helps me unwind quickly and recharge my energy.", image:"./image/johnny.png", likes:45, createdAt:Date.now()-10800000, comments:[{author:"Maya", text:"Swimming is such a good reset.", createdAt:Date.now()-9000000}] }
+    { id:"johnny-1", author:"Johnny Xu", username:"johnny", avatar:"./image/johnny-profile.jpg", category:"life", text:"The recent study pressure has been quite intense, but swimming always helps me unwind quickly and recharge my energy.", image:"./image/johnny.png", likes:45, createdAt:Date.now()-10800000, comments:[{author:"Maya", text:"Swimming is such a good reset.", createdAt:Date.now()-9000000}] }
   ];
   const state = { filter:"all", sort:"latest", query:"", commentPost:null, image:null };
   const getPosts = () => { try { const saved=JSON.parse(localStorage.getItem(STORE)); return Array.isArray(saved) ? saved : seed; } catch { return seed; } };
